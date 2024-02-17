@@ -3,8 +3,6 @@ from tkinter import messagebox
 from configparser import ConfigParser
 import requests
 import sqlite3
-from twilio.rest import Client
-import data_flask
 
 conn = sqlite3.connect('recent_data.db')
 
