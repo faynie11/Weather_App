@@ -5,8 +5,8 @@ config_file = 'config.ini'
 config = ConfigParser()
 config.read(config_file)
 api_key = config['api_key']['key']
-account_sid = 'ACe932721e8db3ad2baef869d0ea3725b5'
-auth_token = '8b8fd8da294fb24444435c86f29f6403'
+account_sid = #Here provide sid from Twillio
+auth_token = #Here provide token from Twillio
 # for SMS notification for Kraków
 
 OWM_Endpoint = "https://api.openweathermap.org/data/2.5/forecast"
