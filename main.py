@@ -18,29 +18,30 @@ api_key = config['api_key']['key']
 
 def get_weather(city):
     result = requests.get(api_url.format(city, api_key))
-    if result:
+    if result and result.status_code == 200:
         json = result.json()
-        # (City, Country, temp_celsius, temp_fahrenheit, icon, weather)
-        city = json['name']
-        country = json['sys']['country']
-        temp_kelvin = json['main']['temp']
-        temp_celsius = temp_kelvin - 273.15
-        icon = json['weather'][0]['icon']
-        weather = json['weather'][0]['main']
-        weather_description = json['weather'][0]['description']
-        humidity = json['main']['humidity']
-        pressure = json['main']['pressure']
-        clouds = json['clouds']['all']
+        try:
+            city = json['name']
+            country = json['sys']['country']
+            temp_kelvin = json['main']['temp']
+            temp_celsius = temp_kelvin - 273.15
+            icon = json['weather'][0]['icon']
+            weather = json['weather'][0]['main']
+            weather_description = json['weather'][0]['description']
+            humidity = json['main']['humidity']
+            pressure = json['main']['pressure']
+            clouds = json['clouds']['all']
 
-        weather_results = (city, country, temp_celsius, temp_kelvin, icon, weather, weather_description, humidity,
-                           pressure, clouds)
-        return weather_results
-
+            weather_results = (city, country, temp_celsius, temp_kelvin, icon, weather, weather_description, humidity,
+                               pressure, clouds)
+            return weather_results
+        except KeyError:
+            return None
     else:
         return None
 
 
-# do zmiany
+
 def recent_weather():
     r_c1 = c.execute('SELECT * FROM recent_cities').fetchall()[-1]
     w_1 = get_weather(r_c1[0])
